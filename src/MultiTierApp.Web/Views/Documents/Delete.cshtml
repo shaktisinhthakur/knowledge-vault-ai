@@ -1,0 +1,28 @@
+@model DocumentDto
+@{
+    ViewData["Title"] = "Delete Document";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="glass-card p-5 text-center">
+            <i class="bi bi-exclamation-triangle-fill text-warning" style="font-size: 3rem;"></i>
+            <h3 class="fw-bold mt-3">Delete Document?</h3>
+            <p class="text-secondary">
+                Are you sure you want to delete <strong class="text-white">@Model.Title</strong>?
+                This will delete the document, its @Model.ChunkCount semantic chunk(s), and remove their vectors from the vector database.
+                This action cannot be undone.
+            </p>
+
+            <form asp-action="Delete" method="post" class="mt-4">
+                <input type="hidden" asp-for="Id" />
+                <div class="d-flex gap-3 justify-content-center">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-2"></i>Yes, Delete
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+## Build & Output
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+
+## User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+
+## Visual Studio & VS Code
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Rider & JetBrains
+.idea/
+
+## Local configuration files
+src/MultiTierApp.Web/appsettings.Development.json
+
+## Docker
+.dockerignore
+
+## OS generated files
+.DS_Store
+Thumbs.db

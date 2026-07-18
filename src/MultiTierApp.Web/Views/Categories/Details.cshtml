@@ -1,0 +1,45 @@
+@model CategoryDto
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="glass-card p-5">
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="stat-icon bg-purple" style="width:56px;height:56px;font-size:1.4rem;">
+                    <i class="bi @Model.IconClass"></i>
+                </div>
+                <div>
+                    <h3 class="fw-bold mb-0">@Model.Name</h3>
+                    <span class="text-secondary">@Model.DocumentCount documents</span>
+                </div>
+            </div>
+
+            <p class="text-secondary mb-4">@Model.Description</p>
+
+            <div class="row g-3 mb-4">
+                <div class="col-sm-6">
+                    <small class="text-secondary d-block">Created</small>
+                    <span>@Model.CreatedAt.ToString("MMMM dd, yyyy")</span>
+                </div>
+                <div class="col-sm-6">
+                    <small class="text-secondary d-block">Last Updated</small>
+                    <span>@Model.UpdatedAt.ToString("MMMM dd, yyyy")</span>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-accent">
+                    <i class="bi bi-pencil me-2"></i>Edit
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">
+                    <i class="bi bi-trash me-2"></i>Delete
+                </a>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-2"></i>Back
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

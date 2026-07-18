@@ -1,0 +1,40 @@
+@model CategoryDto
+@{
+    ViewData["Title"] = "New Category";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="glass-card p-5">
+            <h3 class="fw-bold mb-4"><i class="bi bi-folder-plus me-2 text-accent"></i>Create Category</h3>
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger glass-alert" role="alert"></div>
+
+                <div class="mb-4">
+                    <label asp-for="Name" class="form-label fw-medium">Category Name</label>
+                    <input asp-for="Name" class="form-control form-control-dark" placeholder="e.g., Product Documentation" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Description" class="form-label fw-medium">Description</label>
+                    <textarea asp-for="Description" class="form-control form-control-dark" rows="3" placeholder="Brief description of this category"></textarea>
+                    <span asp-validation-for="Description" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="IconClass" class="form-label fw-medium">Icon (Bootstrap Icons class)</label>
+                    <input asp-for="IconClass" class="form-control form-control-dark" placeholder="bi-folder" />
+                    <small class="text-secondary">Browse icons at <a href="https://icons.getbootstrap.com" target="_blank" class="text-accent">icons.getbootstrap.com</a></small>
+                </div>
+
+                <div class="d-flex gap-3">
+                    <button type="submit" class="btn btn-accent">
+                        <i class="bi bi-check-circle me-2"></i>Create
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

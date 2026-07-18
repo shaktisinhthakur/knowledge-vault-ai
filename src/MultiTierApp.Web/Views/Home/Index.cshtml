@@ -1,0 +1,140 @@
+@model DashboardDto
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<!-- Hero Section -->
+<div class="hero-section mb-5">
+    <div class="row align-items-center">
+        <div class="col-lg-7">
+            <h1 class="display-5 fw-bold mb-3">
+                Welcome to <span class="text-gradient">KnowledgeVault</span>
+            </h1>
+            <p class="lead text-secondary mb-4">
+                Your AI-powered knowledge base. Upload documents, organize by category, and ask intelligent questions powered by Groq AI.
+            </p>
+            <div class="d-flex gap-3 flex-wrap">
+                <a asp-controller="Documents" asp-action="Create" class="btn btn-accent btn-lg">
+                    <i class="bi bi-plus-circle-fill me-2"></i>Add Document
+                </a>
+                <a asp-controller="Rag" asp-action="Index" class="btn btn-outline-light btn-lg">
+                    <i class="bi bi-stars me-2"></i>Ask AI
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-5 text-center mt-4 mt-lg-0">
+            <div class="hero-graphic">
+                <i class="bi bi-database-fill-gear"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row g-4 mb-5">
+    <div class="col-md-3 col-6">
+        <div class="glass-card stat-card p-4 text-center">
+            <div class="stat-icon bg-purple">
+                <i class="bi bi-folder-fill"></i>
+            </div>
+            <div class="stat-number" data-target="@Model.TotalCategories">0</div>
+            <div class="stat-label">Categories</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="glass-card stat-card p-4 text-center">
+            <div class="stat-icon bg-blue">
+                <i class="bi bi-file-earmark-text-fill"></i>
+            </div>
+            <div class="stat-number" data-target="@Model.TotalDocuments">0</div>
+            <div class="stat-label">Documents</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="glass-card stat-card p-4 text-center">
+            <div class="stat-icon bg-green">
+                <i class="bi bi-puzzle-fill"></i>
+            </div>
+            <div class="stat-number" data-target="@Model.TotalChunks">0</div>
+            <div class="stat-label">Chunks</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="glass-card stat-card p-4 text-center">
+            <div class="stat-icon bg-orange">
+                <i class="bi bi-check2-circle"></i>
+            </div>
+            <div class="stat-number" data-target="@Model.EmbeddedDocuments">0</div>
+            <div class="stat-label">Embedded</div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Documents -->
+<div class="glass-card p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold mb-0">
+            <i class="bi bi-clock-history me-2 text-accent"></i>Recent Documents
+        </h4>
+        <a asp-controller="Documents" asp-action="Index" class="btn btn-sm btn-outline-light">
+            View All <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+    </div>
+
+    @if (Model.RecentDocuments.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-dark table-hover table-borderless align-middle">
+                <thead>
+                    <tr class="text-secondary">
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var doc in Model.RecentDocuments)
+                    {
+                        <tr class="table-row-hover">
+                            <td class="fw-medium">@doc.Title</td>
+                            <td><span class="badge bg-secondary">@doc.CategoryName</span></td>
+                            <td>
+                                @if (doc.IsEmbedded)
+                                {
+                                    <span class="badge bg-success-subtle text-success">
+                                        <i class="bi bi-check-circle-fill me-1"></i>Embedded
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning-subtle text-warning">
+                                        <i class="bi bi-clock me-1"></i>Pending
+                                    </span>
+                                }
+                            </td>
+                            <td class="text-secondary">@doc.CreatedAt.ToString("MMM dd, yyyy")</td>
+                            <td>
+                                <a asp-controller="Documents" asp-action="Details" asp-route-id="@doc.Id"
+                                   class="btn btn-sm btn-outline-light">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5 text-secondary">
+            <i class="bi bi-inbox" style="font-size: 3rem;"></i>
+            <p class="mt-3">No documents yet. Start by adding your first document!</p>
+            <a asp-controller="Documents" asp-action="Create" class="btn btn-accent">
+                <i class="bi bi-plus-circle me-2"></i>Add Document
+            </a>
+        </div>
+    }
+</div>
